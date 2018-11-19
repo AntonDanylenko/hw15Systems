@@ -6,25 +6,30 @@
 
 int main(){
   srand(time(NULL));
-  int shleep = rand();
-  printf("Initial. Parent pid: %d\n", getpid());
+  int shleep = (rand()%16)+5;
+  printf("Parent pid: %d\n", getpid());
   int childA = fork();
   if(!childA){
     printf("ChildA Pid: %d\n", getpid());
-    int x = 0;
-    while(x<shleep){
-      wait(&childA);
-      sleep(1);
+    sleep(shleep);
+    printf("Child process %d done waiting after %d seconds\n",getpid(),shleep);
+    return shleep;
+  }
+  else{
+    int childB = fork();
+    if(!childB){
+      shleep = (rand()%16)+5;
+      printf("ChildB Pid: %d\n", getpid());
+      sleep(shleep);
+      printf("Child process %d done waiting after %d seconds\n",getpid(),shleep);
+      return shleep;
     }
-    printf("ChildA done waiting\n");
+    else {
+      int status;
+      int childpid = wait(&status);
+      printf("Completed child process %d slept for %d seconds\n",childpid,WEXITSTATUS(status));
+      return 0;
+    }
+    return 0;
   }
-  /*int childB = fork();
-  printf("ChildB Pid: %d\n", childB);
-  x = 0;
-  int status;
-  while (x<14){
-    waitpid(&childB, status, 0);
-    sleep(1);
-  }
-  printf("ChildB done waiting\n");*/
 }

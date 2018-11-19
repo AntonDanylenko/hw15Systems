@@ -11,7 +11,7 @@ int main(){
   int x = 0;
   int status;
   while(x<8){
-    waitpid(*childA, status, 0);
+    waitpid(childA, status, 0);
     sleep(1);
   }
   printf("ChildA done waiting\n");

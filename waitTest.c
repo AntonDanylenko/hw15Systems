@@ -11,11 +11,11 @@ int main(){
   int x = 0;
   int status;
   while(x<8){
-    waitpid(childA, status, 0);
+    waitpid(&childA, status, 0);
     sleep(1);
   }
   printf("ChildA done waiting\n");
-  int childB = fork();
+  /*int childB = fork();
   printf("ChildB Pid: %d\n", childB);
   x = 0;
   int status;
@@ -23,5 +23,5 @@ int main(){
     waitpid(&childB, status, 0);
     sleep(1);
   }
-  printf("ChildB done waiting\n");
+  printf("ChildB done waiting\n");*/
 }
